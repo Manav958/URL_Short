@@ -6,7 +6,7 @@ const methodOverride = require('method-override');
 const app = express();
 const path = require('path');
 
-const redisClient = redis.createClient('redis://red-cq0ho93v2p9s73cafq9g:6379');
+const redisClient = redis.createClient({url:'redis://red-cq0ho93v2p9s73cafq9g:6379'});
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 (async ()=>{
     await redisClient.connect();
@@ -32,7 +32,7 @@ app.post('/shorten', async (req, res) => {
     redisClient.set(slug, originalUrl);
     redisClient.expire(slug,parseInt(time))
 
-    const shortenedUrl = `https://url-short-c70q.onrender.com/${slug}`;
+    const shortenedUrl =`${req.protocol}://${req.headers.host}/${slug}`;
 
     res.render('result.ejs',{shortenedUrl});
 });
