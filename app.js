@@ -5,7 +5,7 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const app = express();
 const path = require('path');
-
+const QRCode = require('qrcode');
 
 const redisClient = redis.createClient({url:'redis://red-cq0ho93v2p9s73cafq9g:6379'});
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
@@ -26,16 +26,27 @@ app.get('/', (req,res)=>{
 
 app.post('/shorten', async (req, res) => {
     const originalUrl = req.body.url;
-    const time =req.body.time;
+    const time = req.body.time;
     const slug = generateSlug();
     console.log(time);
 
-    redisClient.set(slug, originalUrl);
-    redisClient.expire(slug,parseInt(time))
+    await redisClient.set(slug, originalUrl);
+    await redisClient.expire(slug, parseInt(time));
 
-    const shortenedUrl =`${req.protocol}://${req.headers.host}/${slug}`;
+    const shortenedUrl = `${req.protocol}://${req.headers.host}/${slug}`;
+    console.log(`Shortened URL: ${shortenedUrl}`);
 
-    res.render('result.ejs',{shortenedUrl});
+    
+    QRCode.toDataURL(shortenedUrl, (err, qrCodeDataUrl) => {
+        if (err) {
+            console.error('Error generating QR code:', err);
+            res.status(500).send('Error generating QR code');
+            return;
+        }
+
+        
+        res.render('result.ejs', { shortenedUrl, qrCodeDataUrl });
+    });
 });
 
 app.get('/:slug', async (req, res) => {
