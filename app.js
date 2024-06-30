@@ -5,9 +5,9 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const app = express();
 const path = require('path');
-require('dotenv').config();
 
-const redisClient = redis.createClient({url: process.env.REDIS_URL});
+
+const redisClient = redis.createClient({url:redis://red-cq0ho93v2p9s73cafq9g:6379});
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 (async ()=>{
     await redisClient.connect();
