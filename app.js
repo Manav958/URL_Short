@@ -32,7 +32,7 @@ app.post('/shorten', async (req, res) => {
     redisClient.set(slug, originalUrl);
     redisClient.expire(slug,parseInt(time))
 
-    const shortenedUrl = `${slug}`;
+    const shortenedUrl = `https://url-short-c70q.onrender.com/${slug}`;
 
     res.render('result.ejs',{shortenedUrl});
 });
