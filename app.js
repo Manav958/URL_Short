@@ -32,7 +32,7 @@ app.post('/shorten', async (req, res) => {
     redisClient.set(slug, originalUrl);
     redisClient.expire(slug,parseInt(time))
 
-    const shortenedUrl = `localhost:3000/${slug}`;
+    const shortenedUrl = `${slug}`;
 
     res.render('result.ejs',{shortenedUrl});
 });
