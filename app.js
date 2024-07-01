@@ -6,9 +6,11 @@ const methodOverride = require('method-override');
 const app = express();
 const path = require('path');
 const QRCode = require('qrcode');
-require('dotenv').config();
+const fs = require('fs');
 
-const redisClient = redis.createClient({url:'redis://red-cq0ho93v2p9s73cafq9g:6379'});
+
+// {url:'redis://red-cq0ho93v2p9s73cafq9g:6379'}
+const redisClient = redis.createClient();
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 (async ()=>{
     await redisClient.connect();
@@ -46,10 +48,38 @@ app.post('/shorten', async (req, res) => {
         }
 
         
-        res.render('result.ejs', { shortenedUrl, qrCodeDataUrl });
+        res.render('result.ejs', { shortenedUrl, qrCodeDataUrl,slug });
     });
 });
 
+app.get('/download/:slug', async (req, res) => {
+    const slug = req.params.slug;
+    const shortenedUrl = `${req.protocol}://${req.headers.host}/${slug}`;
+    const filePath = `qrcode-${slug}.png`;
+
+    QRCode.toFile(filePath, shortenedUrl, (err) => {
+        if (err) {
+            console.error('Error generating QR code:', err);
+            res.status(500).send('Error generating QR code');
+            return;
+        }
+
+        res.download(filePath, (err) => {
+            if (err) {
+                console.error('Error sending file:', err);
+                res.status(500).send('Error sending file');
+                return;
+            }
+
+            // Optionally delete the file after sending
+            fs.unlink(filePath, (err) => {
+                if (err) {
+                    console.error('Error deleting file:', err);
+                }
+            });
+        });
+    });
+});
 app.get('/:slug', async (req, res) => {
     const slug = req.params.slug;
     console.log(slug);
