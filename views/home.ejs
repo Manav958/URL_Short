@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-    <h1>Shorten URL</h1>
-    <form action="/shorten" method="POST">
-        <div>
-            <label for="url">Give URL</label>
-            <input type="text" id="url" name="url" required>
-        </div>
-        <div>
-            <label for="time">Time Required</label>
-            <select id="time" name="time" required>
-                <optgroup label="Minutes">
-                    
-                    <option value="5">5 second</option>
-                    <option value="10">10 second</option>
-                    <option value="900">15 minutes</option>
-                    <option value="1800">30 minutes</option>
-                    <option value="3600">1 hour</option>
-                    <option value="86400">24 hour</option>
-                </optgroup>
-                
-            </select>
-        </div>
-        
-
-        <button>Submit</button>
-    </form>
+    <div class="background">
+        <h1>URL Shortener</h1>
+        <form action="/shorten" method="POST">
+            <div>
+                <label for="url">Give URL</label>
+                <input type="text" id="url" name="url" required>
+            </div>
+            <div>
+                <label for="time">Time Required</label>
+                <select id="time" name="time" required>
+                    <optgroup label="Minutes">
+                        <option value="5">5 seconds</option>
+                        <option value="10">10 seconds</option>
+                        <option value="900">15 minutes</option>
+                        <option value="1800">30 minutes</option>
+                        <option value="3600">1 hour</option>
+                        <option value="86400">24 hours</option>
+                        <option value="100000000000000000000">Always</option>
+                    </optgroup>
+                </select>
+            </div>
+            <button>Submit</button>
+        </form>
+    </div>
 </body>
 </html>

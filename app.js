@@ -6,16 +6,16 @@ const methodOverride = require('method-override');
 const app = express();
 const path = require('path');
 const QRCode = require('qrcode');
-<<<<<<< HEAD
+
 const fs = require('fs');
 
+// {url:'redis://red-cq0ho93v2p9s73cafq9g:6379'}
+
+const redisClient = redis.createClient();
 
 
-const redisClient = redis.createClient({url:'redis://red-cq0ho93v2p9s73cafq9g:6379'});
-=======
 
-const redisClient = redis.createClient({url:'redis://red-cq0ho93v2p9s73cafq9g:6379'});
->>>>>>> 305dc1039eb52bec3cec39d215e37f0a864e6373
+
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 (async ()=>{
     await redisClient.connect();
@@ -23,7 +23,7 @@ redisClient.on('error', (err) => console.log('Redis Client Error', err));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'views')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -53,11 +53,11 @@ app.post('/shorten', async (req, res) => {
         }
 
         
-<<<<<<< HEAD
+
         res.render('result.ejs', { shortenedUrl, qrCodeDataUrl,slug });
-=======
-        res.render('result.ejs', { shortenedUrl, qrCodeDataUrl });
->>>>>>> 305dc1039eb52bec3cec39d215e37f0a864e6373
+
+        
+
     });
 });
 
