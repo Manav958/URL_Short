@@ -6,16 +6,13 @@ const methodOverride = require('method-override');
 const app = express();
 const path = require('path');
 const QRCode = require('qrcode');
-<<<<<<< HEAD
+
 const fs = require('fs');
 
 
 
 const redisClient = redis.createClient({url:'redis://red-cq0ho93v2p9s73cafq9g:6379'});
-=======
 
-const redisClient = redis.createClient({url:'redis://red-cq0ho93v2p9s73cafq9g:6379'});
->>>>>>> 305dc1039eb52bec3cec39d215e37f0a864e6373
 redisClient.on('error', (err) => console.log('Redis Client Error', err));
 (async ()=>{
     await redisClient.connect();
@@ -53,11 +50,9 @@ app.post('/shorten', async (req, res) => {
         }
 
         
-<<<<<<< HEAD
+
         res.render('result.ejs', { shortenedUrl, qrCodeDataUrl,slug });
-=======
-        res.render('result.ejs', { shortenedUrl, qrCodeDataUrl });
->>>>>>> 305dc1039eb52bec3cec39d215e37f0a864e6373
+
     });
 });
 
