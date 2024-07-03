@@ -11,7 +11,7 @@ const fs = require('fs');
 
 // {url:'redis://red-cq0ho93v2p9s73cafq9g:6379'}
 
-const redisClient = redis.createClient({url:'redis://red-cq0ho93v2p9s73cafq9g:6379'});
+const redisClient = redis.createClient();
 
 
 redisClient.on('error', (err) => console.log('Redis Client Error', err));

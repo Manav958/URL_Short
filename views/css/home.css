@@ -29,7 +29,8 @@ h1 {
 }
 
 form {
-    background: rgba(188, 141, 245, 0.85); /* Light blue background */
+    background: rgba(188, 141, 245, 0.85);
+    background-repeat: no-repeat; /* Light blue background */
     padding: 30px;
     
     border-radius: 15px;

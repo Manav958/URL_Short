@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Your Shortened URL</title>
+    <link rel="stylesheet" href="/css/result.css">
 </head>
 <body>
-    <h1>Your Shortened URL</h1>
-    <p>Here is your shortened URL:</p>
-    <a href="<%= shortenedUrl %>"><%= shortenedUrl %></a>
-    <p>Scan the QR code to visit the URL:</p>
-    <img src="<%= qrCodeDataUrl %>" alt="QR Code">
-
-    <p><a href="/download/<%= slug %>">Download QR Code</a></p>
-
-
+    <div class="background">
+        <div class="content">
+            <h1>Your Shortened URL</h1>
+            <p>Here is your shortened URL:</p>
+            <a href="<%= shortenedUrl %>" class="short-url"><%= shortenedUrl %></a>
+            <p>Scan the QR code to visit the URL:</p>
+            <img src="<%= qrCodeDataUrl %>" alt="QR Code" class="qr-code">
+            <p><a href="/download/<%= slug %>" class="download-link">Download QR Code</a></p>
+        </div>
+    </div>
 </body>
 </html>
